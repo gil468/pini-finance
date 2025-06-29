@@ -30,7 +30,8 @@ const Index = () => {
     "תוכנית תקציב מפורטת וברורה",
     "כלים פרקטיים לחיסכון חודשי",
     "הדרכה לניהול חובות ויציאה מהמינוס",
-    "מעקב והכוונה רציפה עד להשגת היעדים"
+    "מעקב והכוונה רציפה עד להשגת היעדים",
+    "אפשרות לייעוץ ב-zoom"
   ];
 
   const testimonials = [
@@ -73,7 +74,7 @@ const Index = () => {
           </h2>
           
           <p className="text-xl md:text-2xl text-blue-700 mb-8 max-w-3xl mx-auto leading-relaxed">
-            צאו מהמינוס בעזרת ייעוץ מקצועי וצאו למסע של שליטה כלכלית וחיסכון חכם
+            צאו למסע של שליטה כלכלית וחיסכון חכם
           </p>
 
           <div className="flex items-center justify-center gap-2 mb-8 text-sky-700">
@@ -157,15 +158,11 @@ const Index = () => {
               <ul className="space-y-4 text-blue-700 text-lg">
                 <li className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-red-500 rounded-full mt-3 flex-shrink-0"></div>
-                  <span>בסוף החודש אין כסף והחשבונות צבורים</span>
+                  <span>לא מצליחים לסגור את החודש</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-red-500 rounded-full mt-3 flex-shrink-0"></div>
                   <span>לא יודעים לאן הכסף נעלם</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-red-500 rounded-full mt-3 flex-shrink-0"></div>
-                  <span>חיים מחשבון עובר לחשבון עובר</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-red-500 rounded-full mt-3 flex-shrink-0"></div>
