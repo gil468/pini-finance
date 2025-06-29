@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { CheckCircle, Users, Star, Phone, Mail, MessageCircle } from "lucide-react";
+import { CheckCircle, Users, Star, Phone, Mail, MessageCircle, Award, TrendingUp, Shield } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -20,7 +20,7 @@ const Index = () => {
     e.preventDefault();
     toast({
       title: "תודה על הפנייה!",
-      description: "ניצור איתך קשר בקרוב לתיאום פגישת הייעוץ החינמית",
+      description: "ניצור איתך קשר בקרוב לתיאום פגישת הייעוץ המקצועית",
     });
     setFormData({ name: "", phone: "", email: "", message: "" });
   };
@@ -49,44 +49,105 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-orange-50 to-amber-50" dir="rtl">
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-blue-50" dir="rtl">
       {/* Hero Section */}
       <section className="py-20 px-4">
         <div className="container mx-auto max-w-6xl text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-6 leading-tight">
-            רוצים לצאת מהמינוס
-            <br />
-            <span className="text-orange-600">אחת ולתמיד?</span>
+          {/* Logo */}
+          <div className="flex justify-center mb-8">
+            <img 
+              src="/lovable-uploads/e99219e3-5aaf-4513-a989-3ed57bf0e0ee.png" 
+              alt="פיני שגב יועץ פיננסי" 
+              className="w-32 h-32 object-contain"
+            />
+          </div>
+          
+          <h1 className="text-4xl md:text-6xl font-bold text-slate-800 mb-4 leading-tight">
+            פיני שגב - יועץ פיננסי לכלכלת המשפחה
           </h1>
           
-          <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
+          <h2 className="text-3xl md:text-5xl font-bold text-slate-700 mb-6 leading-tight">
+            רוצים לצאת מהמינוס
+            <br />
+            <span className="text-teal-600">אחת ולתמיד?</span>
+          </h2>
+          
+          <p className="text-xl md:text-2xl text-slate-600 mb-8 max-w-3xl mx-auto leading-relaxed">
             הפסיקו לדאוג על כסף בסוף החודש. קבלו ייעוץ מקצועי וצאו למסע של שליטה כלכלית וחיסכון חכם
           </p>
 
-          <div className="flex items-center justify-center gap-2 mb-8 text-orange-700">
+          <div className="flex items-center justify-center gap-2 mb-8 text-teal-700">
             <Users className="w-6 h-6" />
             <span className="text-lg font-semibold">מעל 500 משפחות כבר שיפרו את מצבם הכלכלי איתנו</span>
           </div>
 
           <Button 
             size="lg" 
-            className="bg-orange-600 hover:bg-orange-700 text-white px-8 py-4 text-lg rounded-full shadow-lg hover:shadow-xl transition-all"
+            className="bg-teal-600 hover:bg-teal-700 text-white px-8 py-4 text-lg rounded-full shadow-lg hover:shadow-xl transition-all"
             onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
           >
-            קבלו ייעוץ חינם עכשיו
+            לקבלת ייעוץ מקצועי
           </Button>
         </div>
       </section>
 
-      {/* Problem & Solution Section */}
+      {/* About the Advisor Section */}
       <section className="py-16 px-4 bg-white">
+        <div className="container mx-auto max-w-4xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-6">
+              מי אני ומה אני מציע
+            </h2>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h3 className="text-2xl font-bold text-slate-800 mb-4">
+                פיני שגב - יועץ פיננסי מוסמך
+              </h3>
+              <p className="text-slate-600 text-lg leading-relaxed mb-6">
+                בעל ניסיון של מעל 15 שנה בתחום הייעוץ הפיננסי, מתמחה בכלכלת המשפחה וניהול תקציב אישי. 
+                עזרתי למאות משפחות להשיג יציבות כלכלית ולבנות עתיד פיננסי בטוח.
+              </p>
+              
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <Award className="w-6 h-6 text-teal-600 flex-shrink-0 mt-1" />
+                  <span className="text-slate-700">יועץ פיננסי מוסמך עם רישיון משרד האוצר</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <TrendingUp className="w-6 h-6 text-teal-600 flex-shrink-0 mt-1" />
+                  <span className="text-slate-700">מומחה לתכנון פיננסי ארוך טווח</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Shield className="w-6 h-6 text-teal-600 flex-shrink-0 mt-1" />
+                  <span className="text-slate-700">מתמחה בניהול סיכונים וחיסכון למשפחות</span>
+                </div>
+              </div>
+            </div>
+            
+            <div className="bg-gradient-to-br from-teal-50 to-blue-50 p-8 rounded-2xl border border-teal-200">
+              <h3 className="text-2xl font-bold text-teal-800 mb-4">
+                הגישה שלי
+              </h3>
+              <p className="text-teal-700 text-lg leading-relaxed">
+                אני מאמין שכל משפחה יכולה להשיג יציבות כלכלית עם התוכנית הנכונה. 
+                הגישה שלי מבוססת על הבנת הצרכים הייחודיים של כל משפחה ובניית תוכנית מעשית ומותאמת אישית.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Problem & Solution Section */}
+      <section className="py-16 px-4 bg-slate-50">
         <div className="container mx-auto max-w-4xl">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl font-bold text-gray-800 mb-6">
+              <h2 className="text-3xl font-bold text-slate-800 mb-6">
                 מכירים את התחושה?
               </h2>
-              <ul className="space-y-4 text-gray-600 text-lg">
+              <ul className="space-y-4 text-slate-600 text-lg">
                 <li className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-red-500 rounded-full mt-3 flex-shrink-0"></div>
                   <span>בסוף החודש אין כסף והחשבונות צבורים</span>
@@ -120,22 +181,22 @@ const Index = () => {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-16 px-4 bg-gradient-to-b from-amber-50 to-orange-50">
+      <section className="py-16 px-4 bg-gradient-to-b from-blue-50 to-teal-50">
         <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-4">
             מה תקבלו בייעוץ?
           </h2>
-          <p className="text-xl text-gray-600 mb-12">
+          <p className="text-xl text-slate-600 mb-12">
             כל מה שאתם צריכים כדי להשיג שליטה כלכלית מלאה
           </p>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {benefits.map((benefit, index) => (
-              <Card key={index} className="p-6 hover:shadow-lg transition-shadow bg-white border-orange-200">
+              <Card key={index} className="p-6 hover:shadow-lg transition-shadow bg-white border-teal-200">
                 <CardContent className="p-0">
                   <div className="flex items-start gap-3">
                     <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0 mt-1" />
-                    <span className="text-gray-700 text-right">{benefit}</span>
+                    <span className="text-slate-700 text-right">{benefit}</span>
                   </div>
                 </CardContent>
               </Card>
@@ -147,21 +208,21 @@ const Index = () => {
       {/* Testimonials Section */}
       <section className="py-16 px-4 bg-white">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-800 text-center mb-12">
             מה הלקוחות שלנו אומרים
           </h2>
           
           <div className="grid md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
-              <Card key={index} className="p-6 hover:shadow-lg transition-shadow bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-200">
+              <Card key={index} className="p-6 hover:shadow-lg transition-shadow bg-gradient-to-br from-blue-50 to-teal-50 border-blue-200">
                 <CardContent className="p-0">
                   <div className="flex items-center gap-2 mb-4">
                     {[...Array(5)].map((_, i) => (
                       <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
                     ))}
                   </div>
-                  <p className="text-gray-700 mb-4 leading-relaxed">"{testimonial.text}"</p>
-                  <p className="font-semibold text-blue-800">- {testimonial.name}</p>
+                  <p className="text-slate-700 mb-4 leading-relaxed">"{testimonial.text}"</p>
+                  <p className="font-semibold text-teal-800">- {testimonial.name}</p>
                 </CardContent>
               </Card>
             ))}
@@ -170,62 +231,62 @@ const Index = () => {
       </section>
 
       {/* Contact Form Section */}
-      <section id="contact-form" className="py-20 px-4 bg-gradient-to-b from-orange-100 to-amber-100">
+      <section id="contact-form" className="py-20 px-4 bg-gradient-to-b from-teal-50 to-blue-100">
         <div className="container mx-auto max-w-2xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-              קבלו פגישת ייעוץ חינמית
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-4">
+              קבלו פגישת ייעוץ מקצועית
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-slate-600">
               השאירו פרטים ונחזור אליכם תוך 24 שעות
             </p>
           </div>
 
-          <Card className="p-8 shadow-xl bg-white border-2 border-orange-200">
+          <Card className="p-8 shadow-xl bg-white border-2 border-teal-200">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label className="block text-gray-700 font-semibold mb-2">שם מלא *</label>
+                <label className="block text-slate-700 font-semibold mb-2">שם מלא *</label>
                 <Input
                   type="text"
                   required
                   value={formData.name}
                   onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  className="text-right border-orange-200 focus:border-orange-400"
+                  className="text-right border-teal-200 focus:border-teal-400"
                   placeholder="הכניסו את שמכם המלא"
                 />
               </div>
 
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-gray-700 font-semibold mb-2">טלפון *</label>
+                  <label className="block text-slate-700 font-semibold mb-2">טלפון *</label>
                   <Input
                     type="tel"
                     required
                     value={formData.phone}
                     onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                    className="text-right border-orange-200 focus:border-orange-400"
+                    className="text-right border-teal-200 focus:border-teal-400"
                     placeholder="050-1234567"
                   />
                 </div>
                 
                 <div>
-                  <label className="block text-gray-700 font-semibold mb-2">דוא״ל</label>
+                  <label className="block text-slate-700 font-semibold mb-2">דוא״ל</label>
                   <Input
                     type="email"
                     value={formData.email}
                     onChange={(e) => setFormData({...formData, email: e.target.value})}
-                    className="text-right border-orange-200 focus:border-orange-400"
+                    className="text-right border-teal-200 focus:border-teal-400"
                     placeholder="example@email.com"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-gray-700 font-semibold mb-2">ספרו לנו על המצב שלכם (אופציונלי)</label>
+                <label className="block text-slate-700 font-semibold mb-2">ספרו לנו על המצב שלכם (אופציונלי)</label>
                 <Textarea
                   value={formData.message}
                   onChange={(e) => setFormData({...formData, message: e.target.value})}
-                  className="text-right border-orange-200 focus:border-orange-400 min-h-[100px]"
+                  className="text-right border-teal-200 focus:border-teal-400 min-h-[100px]"
                   placeholder="למשל: חובות, קשיים בחיסכון, בעיות תקציב..."
                 />
               </div>
@@ -233,35 +294,31 @@ const Index = () => {
               <Button 
                 type="submit" 
                 size="lg" 
-                className="w-full bg-orange-600 hover:bg-orange-700 text-white py-4 text-lg rounded-full shadow-lg hover:shadow-xl transition-all"
+                className="w-full bg-teal-600 hover:bg-teal-700 text-white py-4 text-lg rounded-full shadow-lg hover:shadow-xl transition-all"
               >
-                שלחו פנייה וקבלו ייעוץ חינם
+                שלחו פנייה וקבלו ייעוץ מקצועי
               </Button>
-
-              <p className="text-sm text-gray-500 text-center">
-                * השירות ללא התחייבות. הייעוץ הראשוני חינם לגמרי
-              </p>
             </form>
           </Card>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-800 text-white py-12 px-4">
+      <footer className="bg-slate-800 text-white py-12 px-4">
         <div className="container mx-auto max-w-4xl text-center">
-          <h3 className="text-2xl font-bold mb-4">בית כלכלי - ייעוץ כלכלי למשפחות</h3>
-          <p className="text-gray-300 mb-6">
-            עוזרים למשפחות להשיג שליטה כלכלית ולבנות עתיד פיננסי יציב
+          <h3 className="text-2xl font-bold mb-4">פיני שגב - יועץ פיננסי לכלכלת המשפחה</h3>
+          <p className="text-slate-300 mb-6">
+            עוזר למשפחות להשיג שליטה כלכלית ולבנות עתיד פיננסי יציב
           </p>
           
-          <div className="flex items-center justify-center gap-8 text-gray-300">
+          <div className="flex items-center justify-center gap-8 text-slate-300">
             <div className="flex items-center gap-2">
               <Phone className="w-5 h-5" />
               <span>050-123-4567</span>
             </div>
             <div className="flex items-center gap-2">
               <Mail className="w-5 h-5" />
-              <span>info@bayit-calcali.co.il</span>
+              <span>info@pini-sagiv.co.il</span>
             </div>
           </div>
         </div>
