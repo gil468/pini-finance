@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -23,6 +22,17 @@ const Index = () => {
       description: "ניצור איתך קשר בקרוב לתיאום פגישת הייעוץ המקצועית",
     });
     setFormData({ name: "", phone: "", email: "", message: "" });
+  };
+
+  const scrollToForm = () => {
+    document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const openWhatsApp = () => {
+    const phoneNumber = "972544308998";
+    const message = "שלום, אני מעוניין לקבל ייעוץ פיננסי מקצועי";
+    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
   };
 
   const benefits = [
@@ -306,6 +316,29 @@ const Index = () => {
           </Card>
         </div>
       </section>
+
+      {/* Sticky Mobile CTA Button */}
+      <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-white border-t border-sky-200 p-4 shadow-lg">
+        <Button 
+          onClick={scrollToForm}
+          size="lg" 
+          className="w-full bg-sky-600 hover:bg-sky-700 text-white py-4 text-lg rounded-full shadow-lg hover:shadow-xl transition-all"
+        >
+          אני רוצה להתחיל את השינוי הפיננסי שלי
+        </Button>
+      </div>
+
+      {/* Floating WhatsApp Button */}
+      <button
+        onClick={openWhatsApp}
+        className="fixed bottom-6 left-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:scale-110"
+        aria-label="צור קשר בוואטסאפ"
+      >
+        <MessageCircle className="w-6 h-6" />
+      </button>
+
+      {/* Add bottom padding on mobile to prevent content being hidden behind sticky button */}
+      <div className="h-20 md:hidden"></div>
 
       {/* Footer */}
       <footer className="bg-blue-900 text-white py-12 px-4">
