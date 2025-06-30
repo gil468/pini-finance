@@ -1,9 +1,8 @@
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { CheckCircle, Users, Star, Phone, Mail, MessageCircle, Award, TrendingUp, Shield } from "lucide-react";
+import { CheckCircle, Users, Star, Phone, Mail, MessageCircle, Award, TrendingUp, Shield, Check } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -17,6 +16,12 @@ const Index = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [whatsappOpacity, setWhatsappOpacity] = useState(1);
+  const [formErrors, setFormErrors] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    message: ""
+  });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,8 +37,49 @@ const Index = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const validateForm = () => {
+    const errors = {
+      name: "",
+      phone: "",
+      email: "",
+      message: ""
+    };
+
+    if (!formData.name.trim()) {
+      errors.name = "שם מלא הוא שדה חובה";
+    } else if (formData.name.trim().length < 2) {
+      errors.name = "שם מלא חייב להכיל לפחות 2 תווים";
+    }
+
+    if (!formData.phone.trim()) {
+      errors.phone = "מספר טלפון הוא שדה חובה";
+    } else if (!/^[0-9\-\+\s]{9,15}$/.test(formData.phone.replace(/\s/g, ''))) {
+      errors.phone = "מספר טלפון לא תקין";
+    }
+
+    if (!formData.email.trim()) {
+      errors.email = "כתובת דוא״ל היא שדה חובה";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      errors.email = "כתובת דוא״ל לא תקינה";
+    }
+
+    if (!formData.message.trim()) {
+      errors.message = "תיאור המצב הוא שדה חובה";
+    } else if (formData.message.trim().length < 10) {
+      errors.message = "אנא ספרו לנו יותר על המצב שלכם (לפחות 10 תווים)";
+    }
+
+    setFormErrors(errors);
+    return !Object.values(errors).some(error => error);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!validateForm()) {
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -52,19 +98,48 @@ const Index = () => {
 
       if (response.ok) {
         toast({
-          title: "תודה על הפנייה!",
-          description: "ניצור איתך קשר בקרוב לתיאום פגישת הייעוץ המקצועית",
+          title: (
+            <div className="flex items-center gap-2" dir="rtl">
+              <Check className="w-5 h-5 text-green-600" />
+              <span>תודה על הפנייה!</span>
+            </div>
+          ),
+          description: (
+            <div dir="rtl" className="text-right">
+              ניצור איתך קשר בקרוב לתיאום פגישת הייעוץ המקצועית
+            </div>
+          ),
+          className: "bg-green-50 border-green-200 text-green-800",
         });
         setFormData({ name: "", phone: "", email: "", message: "" });
+        setFormErrors({ name: "", phone: "", email: "", message: "" });
+        
+        // Auto dismiss after 5 seconds
+        setTimeout(() => {
+          // The toast will auto-dismiss due to the TOAST_REMOVE_DELAY in use-toast.ts
+        }, 5000);
       } else {
         throw new Error('Network response was not ok');
       }
     } catch (error) {
       toast({
-        title: "שגיאה",
-        description: "אירעה שגיאה בשליחת הטופס. אנא נסו שוב מאוחר יותר.",
+        title: (
+          <div dir="rtl" className="text-right">
+            שגיאה
+          </div>
+        ),
+        description: (
+          <div dir="rtl" className="text-right">
+            אירעה שגיאה בשליחת הטופס. אנא נסו שוב מאוחר יותר.
+          </div>
+        ),
         variant: "destructive",
       });
+      
+      // Auto dismiss after 5 seconds
+      setTimeout(() => {
+        // The toast will auto-dismiss due to the TOAST_REMOVE_DELAY in use-toast.ts
+      }, 5000);
     } finally {
       setIsSubmitting(false);
     }
@@ -268,17 +343,17 @@ const Index = () => {
             מה הלקוחות שלנו אומרים
           </h2>
           
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {testimonials.map((testimonial, index) => (
-              <Card key={index} className="p-6 hover:shadow-lg transition-all hover-scale bg-gradient-to-br from-emerald-50 to-green-100 border-emerald-200 animate-fade-in">
-                <CardContent className="p-0">
+              <Card key={index} className="p-4 md:p-6 hover:shadow-lg transition-all hover-scale bg-gradient-to-br from-emerald-50 to-green-100 border-emerald-200 animate-fade-in h-full">
+                <CardContent className="p-0 flex flex-col h-full">
                   <div className="flex items-center gap-2 mb-4">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                      <Star key={i} className="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400" />
                     ))}
                   </div>
-                  <p className="text-green-700 mb-4 leading-relaxed">"{testimonial.text}"</p>
-                  <p className="font-semibold text-emerald-800">- {testimonial.name}</p>
+                  <p className="text-green-700 mb-4 leading-relaxed text-sm md:text-base flex-grow">"{testimonial.text}"</p>
+                  <p className="font-semibold text-emerald-800 text-sm md:text-base">- {testimonial.name}</p>
                 </CardContent>
               </Card>
             ))}
@@ -307,9 +382,10 @@ const Index = () => {
                   required
                   value={formData.name}
                   onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  className="text-right border-emerald-200 focus:border-emerald-400"
+                  className={`text-right border-emerald-200 focus:border-emerald-400 ${formErrors.name ? 'border-red-500' : ''}`}
                   placeholder="הכניסו את שמכם המלא"
                 />
+                {formErrors.name && <p className="text-red-500 text-sm mt-1 text-right">{formErrors.name}</p>}
               </div>
 
               <div className="grid md:grid-cols-2 gap-4">
@@ -320,9 +396,10 @@ const Index = () => {
                     required
                     value={formData.phone}
                     onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                    className="text-right border-emerald-200 focus:border-emerald-400"
+                    className={`text-right border-emerald-200 focus:border-emerald-400 ${formErrors.phone ? 'border-red-500' : ''}`}
                     placeholder="050-1234567"
                   />
+                  {formErrors.phone && <p className="text-red-500 text-sm mt-1 text-right">{formErrors.phone}</p>}
                 </div>
                 
                 <div>
@@ -332,9 +409,10 @@ const Index = () => {
                     required
                     value={formData.email}
                     onChange={(e) => setFormData({...formData, email: e.target.value})}
-                    className="text-right border-emerald-200 focus:border-emerald-400"
+                    className={`text-right border-emerald-200 focus:border-emerald-400 ${formErrors.email ? 'border-red-500' : ''}`}
                     placeholder="example@email.com"
                   />
+                  {formErrors.email && <p className="text-red-500 text-sm mt-1 text-right">{formErrors.email}</p>}
                 </div>
               </div>
 
@@ -344,9 +422,10 @@ const Index = () => {
                   required
                   value={formData.message}
                   onChange={(e) => setFormData({...formData, message: e.target.value})}
-                  className="text-right border-emerald-200 focus:border-emerald-400 min-h-[100px]"
+                  className={`text-right border-emerald-200 focus:border-emerald-400 min-h-[100px] ${formErrors.message ? 'border-red-500' : ''}`}
                   placeholder="למשל: חובות, קשיים בחיסכון, בעיות תקציב..."
                 />
+                {formErrors.message && <p className="text-red-500 text-sm mt-1 text-right">{formErrors.message}</p>}
               </div>
 
               <Button 
