@@ -1,5 +1,9 @@
 
 <?php
+require_once __DIR__ . '/vendor/autoload.php';
+
+use Dotenv\Dotenv;
+
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, OPTIONS');
@@ -16,6 +20,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo json_encode(['error' => 'Method not allowed']);
     exit;
 }
+
+// Load environment variables
+$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv->load();
 
 // Get JSON input
 $input = json_decode(file_get_contents('php://input'), true);
@@ -37,10 +45,10 @@ foreach ($required_fields as $field) {
 }
 
 // Sanitize input
-$full_name = htmlspecialchars(trim($input['full_name']));
-$phone_number = htmlspecialchars(trim($input['phone_number']));
+$full_name = htmlspecialchars(trim($input['full_name']), ENT_QUOTES, 'UTF-8');
+$phone_number = htmlspecialchars(trim($input['phone_number']), ENT_QUOTES, 'UTF-8');
 $email = filter_var(trim($input['email']), FILTER_SANITIZE_EMAIL);
-$description = htmlspecialchars(trim($input['description']));
+$description = htmlspecialchars(trim($input['description']), ENT_QUOTES, 'UTF-8');
 
 // Validate email
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -51,12 +59,8 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
 try {
     // Database connection
-    $host = 'localhost';
-    $dbname = 'u415350299_leads';
-    $username = 'u415350299_admin';
-    $password = 'h:JJj$754m';
-    
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
+    $dsn = "mysql:host={$_ENV['DB_HOST']};dbname={$_ENV['DB_NAME']};charset=utf8mb4";
+    $pdo = new PDO($dsn, $_ENV['DB_USER'], $_ENV['DB_PASS']);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
     // Insert into database
@@ -64,7 +68,7 @@ try {
     $stmt->execute([$full_name, $phone_number, $email, $description]);
     
     // Send email notification
-    $to = 'info@pini-sagiv.co.il'; // Your email address
+    $to = $_ENV['EMAIL_TO'];
     $subject = 'פנייה חדשה מהאתר - ' . $full_name;
     
     $email_body = "
@@ -88,7 +92,7 @@ try {
     
     $headers = "MIME-Version: 1.0" . "\r\n";
     $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-    $headers .= "From: website@pini-sagiv.co.il" . "\r\n";
+    $headers .= "From: {$_ENV['EMAIL_FROM']}\r\n";
     $headers .= "Reply-To: $email" . "\r\n";
     
     // Send email using PHP mail() function
