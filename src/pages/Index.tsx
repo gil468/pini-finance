@@ -98,48 +98,22 @@ const Index = () => {
 
       if (response.ok) {
         toast({
-          title: (
-            <div className="flex items-center gap-2" dir="rtl">
-              <Check className="w-5 h-5 text-green-600" />
-              <span>תודה על הפנייה!</span>
-            </div>
-          ),
-          description: (
-            <div dir="rtl" className="text-right">
-              ניצור איתך קשר בקרוב לתיאום פגישת הייעוץ המקצועית
-            </div>
-          ),
-          className: "bg-green-50 border-green-200 text-green-800",
+          title: "✅ תודה על הפנייה!",
+          description: "ניצור איתך קשר בקרוב לתיאום פגישת הייעוץ המקצועית",
+          className: "bg-green-50 border-green-200 text-green-800 text-right",
         });
         setFormData({ name: "", phone: "", email: "", message: "" });
         setFormErrors({ name: "", phone: "", email: "", message: "" });
-        
-        // Auto dismiss after 5 seconds
-        setTimeout(() => {
-          // The toast will auto-dismiss due to the TOAST_REMOVE_DELAY in use-toast.ts
-        }, 5000);
       } else {
         throw new Error('Network response was not ok');
       }
     } catch (error) {
       toast({
-        title: (
-          <div dir="rtl" className="text-right">
-            שגיאה
-          </div>
-        ),
-        description: (
-          <div dir="rtl" className="text-right">
-            אירעה שגיאה בשליחת הטופס. אנא נסו שוב מאוחר יותר.
-          </div>
-        ),
+        title: "❌ שגיאה",
+        description: "אירעה שגיאה בשליחת הטופס. אנא נסו שוב מאוחר יותר.",
         variant: "destructive",
+        className: "text-right",
       });
-      
-      // Auto dismiss after 5 seconds
-      setTimeout(() => {
-        // The toast will auto-dismiss due to the TOAST_REMOVE_DELAY in use-toast.ts
-      }, 5000);
     } finally {
       setIsSubmitting(false);
     }
